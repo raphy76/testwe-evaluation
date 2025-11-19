@@ -1,0 +1,57 @@
+# 🧩 Instructions du projet
+
+## 1. Et le dev créa le ticket 🪄
+
+- Ajouter un bouton **« Nouveau ticket »**
+- Créer un **formulaire de création de ticket** pour ajouter un ticket au board
+
+---
+
+## 2. Le ticket dit : « Je veux être parfait » 🌟
+
+- Faire en sorte que le formulaire de création de ticket puisse servir a un mode d'édition des tickets
+
+---
+
+## 2. Et le ticket dit : « Je veux changer de colonne » 🔄
+
+- Choisir une **librairie de drag & drop** adaptée à l’exercice _(ou utiliser une solution native)_
+- Mettre en place une **animation fluide** permettant de déplacer les tickets d’une colonne à une autre
+
+---
+
+## 3. Et le dev façonna le style 🎨
+
+- Créer le **style global** de l’application (CSS ou framework au choix)
+- S’assurer que l’interface soit **propre, claire et agréable à utiliser**
+
+---
+
+## 4. Puis vinrent les colonnes 🏗️
+
+- Comme pour les tickets, créer un **formulaire de création de colonnes**
+- Permettre d’ajouter dynamiquement de nouvelles colonnes au board
+
+---
+
+## 5. Et le dev, plein d’audace, fit un bonus ⚡
+
+- Grâce à **Electron**, implémenter la **sauvegarde automatique du board** dans un fichier local
+- Les tickets et colonnes doivent être **synchronisés en temps réel**
+
+---
+
+## 🧠 Notes techniques
+
+- Lancer l’application :
+  ```bash
+  yarn start
+  ```
+- Code **React (front-end)** : `src/app`
+- Code **Electron (back-end)** : `src/server`
+
+---
+
+## 🔗 Liens utiles
+
+- 📘 [Documentation Electron IPC](https://www.electronjs.org/docs/latest/tutorial/ipc)

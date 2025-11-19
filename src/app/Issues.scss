@@ -1,0 +1,39 @@
+$h2-height: 35px;
+$h2-fontsize: 20px;
+
+.issue-container {
+  padding: 20px;
+
+  & h2 {
+    padding: 0 10px 10px;
+    margin: 0;
+    height: $h2-height;
+    line-height: $h2-height;
+    font-size: $h2-fontsize;
+  }
+
+  & h3 {
+    padding: 0;
+    margin: 0;
+    font-size: 16px;
+  }
+}
+
+.issue-columns {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  height: 100%;
+}
+
+.issue-column {
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  overflow-y: auto;
+  padding: 10px;
+}
+
+.issue-item {
+  border: 1px solid #ddd;
+}
