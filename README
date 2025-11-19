@@ -1,3 +1,43 @@
+# Installation for linux
+
+Pour éviter des conflits avec des potentielles mauvaises précédentes manips (mauvaise version ou mélange entre yarn ou npm par exemple) :
+rm yarn.lock
+rm package-lock.json
+rm -rf node_modules
+rm -rf config/dll release/app/node_modules
+
+#autoriser docker à acceder au display
+xhost +local:docker
+
+Créer volume
+docker volume create electron_node_modules
+
+Pour build l'image docker :
+docker build -t testwe-react .
+
+Pour passer le "yarn install" au tout début, il faut lancer le docker une première fois en root:
+docker run -it --rm   -e DISPLAY=$DISPLAY   -v /tmp/.X11-unix:/tmp/.X11-unix   -v $(pwd):/home/electronuser/app:cached   -v electron_node_modules:/home/electronuser/app/node_modules   --security-opt seccomp=unconfined   --user root   testwe-react /bin/bash
+
+Ensuite, depuis le conteneur :
+yarn install
+
+Toujours depuis le conteneur, ajuster les droits:
+chown -R electronuser:electronuser /home/electronuser/app/node_modules
+chown -R electronuser:electronuser /home/electronuser/app/config/dll
+
+Puis quitter le conteneur:
+exit
+
+Relancer le conteneur mais cette fois-ci, en tant qu'utilisateur non root :
+docker run -it --rm   -e DISPLAY=$DISPLAY   -v /tmp/.X11-unix:/tmp/.X11-unix   -v $(pwd):/home/electronuser/app:cached   -v electron_node_modules:/home/electronuser/app/node_modules   --security-opt seccomp=unconfined testwe-react /bin/bash
+
+Puis, depuis le conteneur :
+yarn start
+
+
+
+
+
 # 🧩 Instructions du projet
 
 ## 1. Et le dev créa le ticket 🪄
