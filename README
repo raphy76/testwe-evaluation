@@ -1,40 +1,30 @@
-# Installation for linux
+# Installation
 
-Pour éviter des conflits avec des potentielles mauvaises précédentes manips (mauvaise version ou mélange entre yarn ou npm par exemple) :
-rm yarn.lock
-rm package-lock.json
-rm -rf node_modules
-rm -rf config/dll release/app/node_modules
+chmod +x installContainerizedApp.sh launchContainerizedApp.sh
+./installContainerizedApp.sh && ./launchContainerizedApp.sh
 
-#autoriser docker à acceder au display
-xhost +local:docker
+-Si lancé depuis un terminal local, accéder via : http://localhost:6080/vnc.html
+Quand vous êtes sur la page, cliquez sur le bouton connect
 
-Créer volume
-docker volume create electron_node_modules
+-Si lancé depuis un terminal sur https://github.com/codespaces, ajouter un port 6080, puis codespaces vous donnera un lien.
+Ouvrir ce lien sur votre navigateur puis cliquer sur vnc.html (ou ajouter directement /vnc.html dans la barre de navigation). Quand vous êtes sur la page, cliquez sur le bouton connect
 
-Pour build l'image docker :
-docker build -t testwe-react .
+Commandes utiles:
+Killer l'appli : 
+Ctrl + C
 
-Pour passer le "yarn install" au tout début, il faut lancer le docker une première fois en root:
-docker run -it --rm   -e DISPLAY=$DISPLAY   -v /tmp/.X11-unix:/tmp/.X11-unix   -v $(pwd):/home/electronuser/app:cached   -v electron_node_modules:/home/electronuser/app/node_modules   --security-opt seccomp=unconfined   --user root   testwe-react /bin/bash
+Relancer l'appli :
+./launchContainerizedApp.sh
 
-Ensuite, depuis le conteneur :
-yarn install
+Prendre la main sur le docker:
+docker run -it -p 6080:6080 --rm \
+  -v "$(pwd)":/home/electronuser/app:cached \
+  -v electron_node_modules:/home/electronuser/app/node_modules \
+  --security-opt seccomp=unconfined \
+  testwe-react /bin/bash
+(puis éventuellement lancer ./start.sh depuis le conteneur)
 
-Toujours depuis le conteneur, ajuster les droits:
-chown -R electronuser:electronuser /home/electronuser/app/node_modules
-chown -R electronuser:electronuser /home/electronuser/app/config/dll
-
-Puis quitter le conteneur:
-exit
-
-Relancer le conteneur mais cette fois-ci, en tant qu'utilisateur non root :
-docker run -it --rm   -e DISPLAY=$DISPLAY   -v /tmp/.X11-unix:/tmp/.X11-unix   -v $(pwd):/home/electronuser/app:cached   -v electron_node_modules:/home/electronuser/app/node_modules   --security-opt seccomp=unconfined testwe-react /bin/bash
-
-Puis, depuis le conteneur :
-yarn start
-
-
+Pour sortir d'un conteneur : exit
 
 
 

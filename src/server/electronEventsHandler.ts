@@ -4,7 +4,8 @@ import { app, ipcMain } from 'electron';
 import fs from 'fs';
 import path from 'path';
 
-const dataPath = path.join(app.getPath('userData'), 'data.json');
+//const dataPath = path.join(app.getPath('userData'), 'data_issues_and_columns.json');
+const dataPath = path.join(process.cwd(), 'data_issues_and_columns.json');
 
 const DEFAULT_COLUMNS = [
   { id: "todo", title: "To Do" },
